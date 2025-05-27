@@ -5,7 +5,21 @@
 32 KB cache -> 32 * 2^10 / 64 = 2^9 blocks
 4 blocks per set -> 2^9 / 4 = 2^7 = 128 sets
 
-2-3 bits for LRU age bits
+REPLACEMENT POLICIES: LRU
+
+READ: Hit / Miss
+MISS: move to EVICT (read from main memory),
+bring new data and add it to the cache (replace if necessary)
+HIT: move to IDLE (success)
++ increment / reset age bits
+
+WRITE: Hit / Miss
+MISS -> WRITE ALLOCATE: no data found in cache, bring from main memory to cache, allocate it and EVICT something
+HIT -> WRITE BACK: dirty bit -> write to main memory, if dirty bit is 1
+(need to replace the data in the cache, but the selected block is dirty, update the main memory, then replace)
++ increment / reset age bits
+
+2-3 bits for LRU age bits (incremented per each set operation, not all at once)
 1 dirty bit
 1 valid bit
 
@@ -19,3 +33,8 @@ tag | index | BO | WO
 
 1 ------- 1 ---- 3 -- 19 -- 512
 Valid | Dirty | Age | Tag | Data
+
+Block Offset , Word Offset -> MUX
+TAG -> Big MUX to check for hit / miss
+INDEX -> check in which set should the data be placed
+Dirty -> 1 if data from the cache is different from the data in main memory
