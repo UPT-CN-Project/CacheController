@@ -38,3 +38,29 @@ Block Offset , Word Offset -> MUX
 TAG -> Big MUX to check for hit / miss
 INDEX -> check in which set should the data be placed
 Dirty -> 1 if data from the cache is different from the data in main memory
+
+INPUT:
+■ 1-bit Read or Write signal
+■ 1-bit Valid signal, saying whether there is a cache operation or not
+■ 32-bit address
+// write only
+■ 32-bit data from processor to cache // to be discussed
+
+OUTPUT:
+■ 1-bit Ready signal, saying the cache operation is complete
+// read only
+■ 32-bit data from cache to processor // to be discussed
+
+CACHE TO MAIN MEMORY SIGNALS:
+
+INPUT:
+■ 1-bit Read or Write signal
+■ 1-bit Valid signal, saying whether there is a memory operation or not
+■ 32-bit address
+// write only
+■ 128-bit data from cache to memory
+
+OUTPUT:
+■ 1-bit Ready signal, saying the memory operation is complete
+// write only
+■ 128-bit data from memory to cache
