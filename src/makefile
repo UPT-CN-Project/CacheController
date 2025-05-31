@@ -47,6 +47,22 @@ bitwise_comparator:
 
 	@echo "===== Finished testing ====="
 
+
+#---------------------------------------
+# cache_line
+#---------------------------------------
+.PHONY: cache_line
+cache_line:
+	@echo "===== Building cache_line ====="
+	@mkdir -p $(BUILD_DIR)
+
+	@$(SIMULATOR) $(SIM_FLAGS) -o $(BUILD_DIR)/cache_line.vvp $(SRC_DIR)/cache_line.v $(SRC_DIR)/bitwise_comparator.v $(SRC_DIR)/bit_comparator.v $(SRC_DIR)/and_wordgate.v $(TB_DIR)/cache_line_tb.v
+
+	@vvp $(BUILD_DIR)/cache_line.vvp
+
+	@echo "==============================="
+
+
 #---------------------------------------
 # four_way_set: placeholder
 #---------------------------------------
@@ -54,17 +70,9 @@ bitwise_comparator:
 four_way_set:
 	@echo "===== Building four_way_set ====="
 	@mkdir -p $(BUILD_DIR)
-	@echo "(placeholder)"
-	@echo "==============================="
+	@$(SIMULATOR) $(SIM_FLAGS) -o $(BUILD_DIR)/four_way_set_sim.vvp $(SRC_DIR)/four_way_set.v $(SRC_DIR)/bit_comparator.v $(SRC_DIR)/and_wordgate.v $(TB_DIR)/four_way_set_tb.v
 
-#---------------------------------------
-# cache_line: placeholder
-#---------------------------------------
-.PHONY: cache_line
-cache_line:
-	@echo "===== Building cache_line ====="
-	@mkdir -p $(BUILD_DIR)
-	@echo "(placeholder)"
+
 	@echo "==============================="
 
 #---------------------------------------
