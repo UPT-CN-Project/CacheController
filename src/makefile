@@ -70,7 +70,8 @@ cache_line:
 four_way_set:
 	@echo "===== Building four_way_set ====="
 	@mkdir -p $(BUILD_DIR)
-	@$(SIMULATOR) $(SIM_FLAGS) -o $(BUILD_DIR)/four_way_set_sim.vvp $(SRC_DIR)/four_way_set.v $(SRC_DIR)/bit_comparator.v $(SRC_DIR)/and_wordgate.v $(TB_DIR)/four_way_set_tb.v
+
+	@$(SIMULATOR) $(SIM_FLAGS) -o $(BUILD_DIR)/four_way_set_sim.vvp $(SRC_DIR)/four_way_set.v $(SRC_DIR)/cache_line.v $(SRC_DIR)/encoder4to2.v $(SRC_DIR)/bitwise_comparator.v $(SRC_DIR)/bit_comparator.v $(SRC_DIR)/and_wordgate.v $(SRC_DIR)/mux4to1.v $(TB_DIR)/four_way_set_tb.v
 
 
 	@echo "==============================="
