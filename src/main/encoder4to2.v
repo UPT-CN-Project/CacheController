@@ -1,11 +1,14 @@
 module encoder4to2 (
-    input  [3:0] in,
-    output [1:0] out
+    input  wire [3:0] in,
+    output reg  [1:0] out
 );
-
-    assign out = (in == 4'b0001) ? 2'b00 : 2'bzz;
-    assign out = (in == 4'b0010) ? 2'b01 : 2'bzz;
-    assign out = (in == 4'b0100) ? 2'b10 : 2'bzz;
-    assign out = (in == 4'b1000) ? 2'b11 : 2'bzz;
-
+    always @(*) begin
+        case (in)
+            4'b0001: out = 2'b00;
+            4'b0010: out = 2'b01;
+            4'b0100: out = 2'b10;
+            4'b1000: out = 2'b11;
+            default: out = 2'b00;  // when no bits are set or multiple bits set
+        endcase
+    end
 endmodule
