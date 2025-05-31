@@ -23,7 +23,6 @@ all: and_wordgate bitwise_comparator four_way_set cache_line control_unit cache_
 .PHONY: and_wordgate
 and_wordgate:
 	@echo "===== Building and testing and_wordgate ====="
-
 	@mkdir -p $(BUILD_DIR)
 
 	@$(SIMULATOR) $(SIM_FLAGS) -o $(BUILD_DIR)/and_wordgate_sim.vvp $(SRC_DIR)/and_wordgate.v $(TB_DIR)/and_wordgate_tb.v
@@ -38,7 +37,6 @@ and_wordgate:
 .PHONY: bitwise_comparator
 bitwise_comparator:
 	@echo "===== Building bitwise_comparator ====="
-
 	@mkdir -p $(BUILD_DIR)
 
 	@$(SIMULATOR) $(SIM_FLAGS) -o $(BUILD_DIR)/bitwise_comparator_sim.vvp $(SRC_DIR)/bitwise_comparator.v $(SRC_DIR)/bit_comparator.v $(SRC_DIR)/and_wordgate.v $(TB_DIR)/bitwise_comparator_tb.v
@@ -46,7 +44,6 @@ bitwise_comparator:
 	@vvp $(BUILD_DIR)/bitwise_comparator_sim.vvp
 
 	@echo "===== Finished testing ====="
-
 
 #---------------------------------------
 # cache_line
@@ -60,11 +57,10 @@ cache_line:
 
 	@vvp $(BUILD_DIR)/cache_line.vvp
 
-	@echo "==============================="
-
+	@echo "===== Finished testing ====="
 
 #---------------------------------------
-# four_way_set: placeholder
+# four_way_set
 #---------------------------------------
 .PHONY: four_way_set
 four_way_set:
@@ -73,38 +69,39 @@ four_way_set:
 
 	@$(SIMULATOR) $(SIM_FLAGS) -o $(BUILD_DIR)/four_way_set_sim.vvp $(SRC_DIR)/four_way_set.v $(SRC_DIR)/cache_line.v $(SRC_DIR)/encoder4to2.v $(SRC_DIR)/bitwise_comparator.v $(SRC_DIR)/bit_comparator.v $(SRC_DIR)/and_wordgate.v $(SRC_DIR)/mux4to1.v $(TB_DIR)/four_way_set_tb.v
 
+	@vvp $(BUILD_DIR)/four_way_set_sim.vvp
 
-	@echo "==============================="
+	@echo "===== Finished testing ====="
 
 #---------------------------------------
-# control_unit: placeholder
+# control_unit
 #---------------------------------------
 .PHONY: control_unit
 control_unit:
 	@echo "===== Building control_unit ====="
 	@mkdir -p $(BUILD_DIR)
 	@echo "(placeholder)"
-	@echo "==============================="
+	@echo "===== Finished testing ====="
 
 #---------------------------------------
-# cache_memory: placeholder
+# cache_memory
 #---------------------------------------
 .PHONY: cache_memory
 cache_memory:
 	@echo "===== Building cache_memory ====="
 	@mkdir -p $(BUILD_DIR)
 	@echo "(placeholder)"
-	@echo "==============================="
+	@echo "===== Finished testing ====="
 
 #---------------------------------------
-# cache_controller: placeholder
+# cache_controller
 #---------------------------------------
 .PHONY: cache_controller
 cache_controller:
 	@echo "===== Building cache_controller ====="
 	@mkdir -p $(BUILD_DIR)
 	@echo "(placeholder)"
-	@echo "===================================="
+	@echo "===== Finished testing ====="
 
 #---------------------------------------
 # clean: remove all generated .vvp files
