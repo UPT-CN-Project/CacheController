@@ -31,7 +31,7 @@ HIT -> WRITE BACK: dirty bit -> write to main memory, if dirty bit is 1
 19 ---- 7 --- 4 -- 2
 tag | index | BO | WO
 
-1 ------- 1 ---- 3 -- 19 -- 512
+1 ------- 1 ---- 2 -- 19 -- 512
 Valid | Dirty | Age | Tag | Data
 
 Block Offset , Word Offset -> MUX
