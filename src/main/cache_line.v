@@ -70,8 +70,6 @@
 //
 //==============================================================================
 
-`timescale 1ns / 1ps
-
 module cache_line #(
     parameter ADDRESS_WORD_SIZE = 32,  // Width of full address
     parameter TAG_SIZE          = 19,  // Number of tag bits
