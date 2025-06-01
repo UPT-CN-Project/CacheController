@@ -169,7 +169,24 @@ module cache_line_tb;
         // Expect: is_empty=0, valid=1, dirty=1, hit_miss=1, age=0, data=A5
 
         //-------------------------------------------------------------------------
-        // 6) AGE MANAGEMENT (unconditionally updating age_bits)
+        // 6) READ AGAIN HIT
+        //-------------------------------------------------------------------------
+        @(posedge clk);
+        address_word = 32'hDEAD_BEEF;
+        ready        = 1'b1;
+        try_read     = 1'b1;
+        @(posedge clk);  // DUT processes read‐hit here
+        ready    = 1'b0;
+        try_read = 1'b0;
+
+        #1;
+        $display("\n===== After READ HIT (time %0t) =====", $time);
+        $display(" is_empty=%b | valid=%b | dirty=%b | hit_miss=%b | age=%0d | data=%0h",
+                 is_empty_out, valid_out, dirty_out, hit_miss_out, age_out, data_out);
+        // Expect: is_empty=0, valid=1, dirty=0, hit_miss=1, age=0, data=8'hA5
+
+        //-------------------------------------------------------------------------
+        // 7) AGE MANAGEMENT (unconditionally updating age_bits)
         //-------------------------------------------------------------------------
         // --- 6.1) reset_age pulse ---
         @(posedge clk);
@@ -221,6 +238,10 @@ module cache_line_tb;
         //-------------------------------------------------------------------------
         @(posedge clk);
         $display("\n===== TEST COMPLETE (time %0t) =====\n", $time);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
         $finish;
     end
 

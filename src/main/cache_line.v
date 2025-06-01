@@ -173,9 +173,9 @@ module cache_line #(
             //    - Otherwise, age_bits holds its value.
             // --------------------------------------------------
             if (reset_age) begin
-                age_bits <= 2'b00;
+                age_bits = 2'b00;
             end else if (increment_age) begin
-                age_bits <= age_bits + 1;
+                age_bits = age_bits + 1;
             end
 
             // --------------------------------------------------
