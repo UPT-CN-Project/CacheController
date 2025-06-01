@@ -257,8 +257,8 @@ module four_way_set #(
     always @(posedge clk or negedge rst_b) begin
         if (!rst_b) begin
             ready         <= 4'b0000;
-            reset_age     <= 4'b0000;
-            increment_age <= 4'b0000;
+            // reset_age     <= 4'b0000;
+            // increment_age <= 4'b0000;
         end else begin
             // 1) Determine which way “owns” this access (hit > empty > LRU)
             if (line_hit_miss[0]) ready <= 4'b0001;  // way0 hit
@@ -278,11 +278,11 @@ module four_way_set #(
             // 2) Build reset_age & increment_age if an access is happening
             if (try_read || try_write) begin
                 // Hit way resets its age; all others increment (including empties).
-                reset_age     <= line_hit_miss;  // one-hot: clear age of hit way
-                increment_age <= ~line_hit_miss;  // one-hot: increment all non-hit ways
+                // reset_age     <= line_hit_miss;  // one-hot: clear age of hit way
+                // increment_age <= ~line_hit_miss;  // one-hot: increment all non-hit ways
             end else begin
-                reset_age     <= 4'b0000;
-                increment_age <= 4'b0000;
+                // reset_age     <= 4'b0000;
+                // increment_age <= 4'b0000;
             end
         end
     end
