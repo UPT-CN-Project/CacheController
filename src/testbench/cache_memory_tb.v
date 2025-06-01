@@ -19,8 +19,6 @@ module cache_memory_tb;
         .try_read(try_read),
         .try_write(try_write),
         .write_data(write_data),
-        .reset_age(reset_age),
-        .increment_age(increment_age),
         .data(data),
         .ages(ages),
         .hit_miss(hit_miss),
@@ -60,19 +58,5 @@ module cache_memory_tb;
         repeat (CLK_CYCLES) #(CLK_PERIOD) write_data = $urandom_range(0, 255);
     end
 
-    initial begin
-        reset_age = $urandom_range(0, 15);
-        increment_age[0] = ~reset_age[0];
-        increment_age[1] = ~reset_age[1];
-        increment_age[2] = ~reset_age[2];
-        increment_age[3] = ~reset_age[3];
-        repeat (CLK_CYCLES) begin
-            #(CLK_PERIOD) reset_age = $urandom_range(0, 15);
-            increment_age[0] = ~reset_age[0];
-            increment_age[1] = ~reset_age[1];
-            increment_age[2] = ~reset_age[2];
-            increment_age[3] = ~reset_age[3];
-        end
-    end
 
 endmodule

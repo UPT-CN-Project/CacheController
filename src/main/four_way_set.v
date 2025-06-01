@@ -132,6 +132,8 @@ module four_way_set #(
     input wire                         try_write,     // Write request for this set
     input wire [ADDRESS_WORD_SIZE-1:0] address_word,  // Full address for lookup
     input wire [                  7:0] write_data,    // Byte to write on write request
+    input wire [                  3:0] reset_age,     // One-hot: reset age for the hit way
+    input wire [                  3:0] increment_age, // One-hot: increment age for all other ways
 
     output wire [7:0] data,         // Selected data byte from the chosen way
     output wire [7:0] ages,         // {age3, age2, age1, age0}, each 2 bits
@@ -148,8 +150,6 @@ module four_way_set #(
     wire [ 3:0] line_is_empty;  // Each way’s “is_empty” flag
 
     wire [ 1:0] sel;  // 2-bit select from 4→2 priority encoder based on `ready`
-    reg  [ 3:0] reset_age;  // One-hot: reset age for the way that hit
-    reg  [ 3:0] increment_age;  // One-hot: increment age for all other ways
 
     // Extract the 2-bit age fields from the combined `ages` bus
     // ages = { age_way3, age_way2, age_way1, age_way0 }

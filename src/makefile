@@ -98,7 +98,9 @@ four_way_set:
 control_unit:
 	@echo "===== Building control_unit ====="
 	@mkdir -p $(BUILD_DIR)
-	@echo "(placeholder)"
+
+	@$(SIMULATOR) $(SIM_FLAGS) -o $(BUILD_DIR)/control_unit_sim.vvp $(SRC_DIR)/control_unit.v $(TB_DIR)/control_unit_tb.v
+
 	@echo "===== Finished testing ====="
 
 #---------------------------------------
@@ -108,7 +110,9 @@ control_unit:
 cache_memory:
 	@echo "===== Building cache_memory ====="
 	@mkdir -p $(BUILD_DIR)
-	@echo "(placeholder)"
+
+	@$(SIMULATOR) $(SIM_FLAGS) -o $(BUILD_DIR)/cache_memory_sim.vvp $(SRC_DIR)/cache_memory.v $(SRC_DIR)/four_way_set.v $(SRC_DIR)/cache_line.v $(SRC_DIR)/encoder4to2.v $(SRC_DIR)/bitwise_comparator.v $(SRC_DIR)/bit_comparator.v $(SRC_DIR)/and_wordgate.v $(SRC_DIR)/mux.v $(SRC_DIR)/decoder.v $(SRC_DIR)/tristate_driver.v $(TB_DIR)/cache_memory_tb.v
+
 	@echo "===== Finished testing ====="
 
 #---------------------------------------
