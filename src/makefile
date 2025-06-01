@@ -15,7 +15,34 @@ BUILD_DIR := build
 #---------------------------------------
 .PHONY: all clean
 
-all: and_wordgate bitwise_comparator four_way_set cache_line control_unit cache_memory cache_controller
+# Run decoder and mux tests first
+all: decoder mux and_wordgate bitwise_comparator cache_line four_way_set control_unit cache_memory cache_controller
+
+#---------------------------------------
+# decoder (decNto2N)
+#---------------------------------------
+.PHONY: decoder
+decoder:
+	@echo "===== Building and testing decoder (decNto2N) ====="
+	@mkdir -p $(BUILD_DIR)
+
+	@$(SIMULATOR) $(SIM_FLAGS) -o $(BUILD_DIR)/decoder_sim.vvp $(SRC_DIR)/decoder.v $(TB_DIR)/decoder_tb.v
+
+	@vvp $(BUILD_DIR)/decoder_sim.vvp
+	@echo "===== Finished decoder testing ====="
+
+#---------------------------------------
+# mux (muxNto1)
+#---------------------------------------
+.PHONY: mux
+mux:
+	@echo "===== Building and testing mux (muxNto1) ====="
+	@mkdir -p $(BUILD_DIR)
+
+	@$(SIMULATOR) $(SIM_FLAGS) -o $(BUILD_DIR)/mux_sim.vvp $(SRC_DIR)/mux.v $(TB_DIR)/mux_tb.v
+
+	@vvp $(BUILD_DIR)/mux_sim.vvp
+	@echo "===== Finished mux testing ====="
 
 #---------------------------------------
 # and_wordgate
@@ -24,9 +51,8 @@ all: and_wordgate bitwise_comparator four_way_set cache_line control_unit cache_
 and_wordgate:
 	@echo "===== Building and testing and_wordgate ====="
 	@mkdir -p $(BUILD_DIR)
-
-	@$(SIMULATOR) $(SIM_FLAGS) -o $(BUILD_DIR)/and_wordgate_sim.vvp $(SRC_DIR)/and_wordgate.v $(TB_DIR)/and_wordgate_tb.v
-
+	@$(SIMULATOR) $(SIM_FLAGS) -o $(BUILD_DIR)/and_wordgate_sim.vvp \
+		$(SRC_DIR)/and_wordgate.v $(TB_DIR)/and_wordgate_tb.v
 	@vvp $(BUILD_DIR)/and_wordgate_sim.vvp
 	@echo "===== Finished testing ====="
 
@@ -35,11 +61,10 @@ and_wordgate:
 #---------------------------------------
 .PHONY: bitwise_comparator
 bitwise_comparator:
-	@echo "===== Building bitwise_comparator ====="
+	@echo "===== Building and testing bitwise_comparator ====="
 	@mkdir -p $(BUILD_DIR)
-
-	@$(SIMULATOR) $(SIM_FLAGS) -o $(BUILD_DIR)/bitwise_comparator_sim.vvp $(SRC_DIR)/bitwise_comparator.v $(SRC_DIR)/bit_comparator.v $(SRC_DIR)/and_wordgate.v $(TB_DIR)/bitwise_comparator_tb.v
-
+	@$(SIMULATOR) $(SIM_FLAGS) -o $(BUILD_DIR)/bitwise_comparator_sim.vvp \
+		$(SRC_DIR)/bitwise_comparator.v $(SRC_DIR)/bit_comparator.v $(SRC_DIR)/and_wordgate.v $(TB_DIR)/bitwise_comparator_tb.v
 	@vvp $(BUILD_DIR)/bitwise_comparator_sim.vvp
 	@echo "===== Finished testing ====="
 
@@ -48,12 +73,11 @@ bitwise_comparator:
 #---------------------------------------
 .PHONY: cache_line
 cache_line:
-	@echo "===== Building cache_line ====="
+	@echo "===== Building and testing cache_line ====="
 	@mkdir -p $(BUILD_DIR)
-
-	@$(SIMULATOR) $(SIM_FLAGS) -o $(BUILD_DIR)/cache_line.vvp $(SRC_DIR)/cache_line.v $(SRC_DIR)/bitwise_comparator.v $(SRC_DIR)/bit_comparator.v $(SRC_DIR)/and_wordgate.v $(TB_DIR)/cache_line_tb.v
-
-	@vvp $(BUILD_DIR)/cache_line.vvp
+	@$(SIMULATOR) $(SIM_FLAGS) -o $(BUILD_DIR)/cache_line_sim.vvp \
+		$(SRC_DIR)/cache_line.v $(SRC_DIR)/bitwise_comparator.v $(SRC_DIR)/bit_comparator.v $(SRC_DIR)/and_wordgate.v $(TB_DIR)/cache_line_tb.v
+	@vvp $(BUILD_DIR)/cache_line_sim.vvp
 	@echo "===== Finished testing ====="
 
 #---------------------------------------
@@ -61,11 +85,10 @@ cache_line:
 #---------------------------------------
 .PHONY: four_way_set
 four_way_set:
-	@echo "===== Building four_way_set ====="
+	@echo "===== Building and testing four_way_set ====="
 	@mkdir -p $(BUILD_DIR)
-
-	@$(SIMULATOR) $(SIM_FLAGS) -o $(BUILD_DIR)/four_way_set_sim.vvp $(SRC_DIR)/four_way_set.v $(SRC_DIR)/cache_line.v $(SRC_DIR)/encoder4to2.v $(SRC_DIR)/bitwise_comparator.v $(SRC_DIR)/bit_comparator.v $(SRC_DIR)/and_wordgate.v $(SRC_DIR)/mux4to1.v $(TB_DIR)/four_way_set_tb.v
-
+	@$(SIMULATOR) $(SIM_FLAGS) -o $(BUILD_DIR)/four_way_set_sim.vvp \
+		$(SRC_DIR)/four_way_set.v $(SRC_DIR)/cache_line.v $(SRC_DIR)/encoder4to2.v $(SRC_DIR)/bitwise_comparator.v $(SRC_DIR)/bit_comparator.v $(SRC_DIR)/and_wordgate.v $(SRC_DIR)/mux4to1.v $(TB_DIR)/four_way_set_tb.v
 	@vvp $(BUILD_DIR)/four_way_set_sim.vvp
 	@echo "===== Finished testing ====="
 
