@@ -120,8 +120,6 @@
 //
 //==============================================================================
 
-`timescale 1ns / 1ps
-
 module four_way_set #(
     parameter ADDRESS_WORD_SIZE = 32,  // Full address width
     parameter TAG_SIZE          = 19,  // Tag bits per cache line

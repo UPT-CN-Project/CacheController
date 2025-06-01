@@ -31,6 +31,7 @@
 //   );
 //
 //==============================================================================
+
 module bit_comparator (
     input  b0,  // First bit to compare
     input  b1,  // Second bit to compare
