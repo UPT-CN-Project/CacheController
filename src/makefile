@@ -14,12 +14,10 @@ BUILD_DIR := build
 
 #---------------------------------------
 .PHONY: all clean
-
-# Run decoder and mux tests first
-all: decoder mux and_wordgate bitwise_comparator cache_line four_way_set control_unit cache_memory cache_controller
-
 #---------------------------------------
-# decoder (decNto2N)
+all: decoder mux and_wordgate bitwise_comparator cache_line four_way_set control_unit cache_memory cache_controller
+#---------------------------------------
+# decoder
 #---------------------------------------
 .PHONY: decoder
 decoder:
@@ -32,7 +30,7 @@ decoder:
 	@echo "===== Finished decoder testing ====="
 
 #---------------------------------------
-# mux (muxNto1)
+# mux
 #---------------------------------------
 .PHONY: mux
 mux:
@@ -87,8 +85,9 @@ cache_line:
 four_way_set:
 	@echo "===== Building and testing four_way_set ====="
 	@mkdir -p $(BUILD_DIR)
-	@$(SIMULATOR) $(SIM_FLAGS) -o $(BUILD_DIR)/four_way_set_sim.vvp \
-		$(SRC_DIR)/four_way_set.v $(SRC_DIR)/cache_line.v $(SRC_DIR)/encoder4to2.v $(SRC_DIR)/bitwise_comparator.v $(SRC_DIR)/bit_comparator.v $(SRC_DIR)/and_wordgate.v $(SRC_DIR)/mux4to1.v $(TB_DIR)/four_way_set_tb.v
+
+	@$(SIMULATOR) $(SIM_FLAGS) -o $(BUILD_DIR)/four_way_set_sim.vvp $(SRC_DIR)/four_way_set.v $(SRC_DIR)/cache_line.v $(SRC_DIR)/encoder4to2.v $(SRC_DIR)/bitwise_comparator.v $(SRC_DIR)/bit_comparator.v $(SRC_DIR)/and_wordgate.v $(SRC_DIR)/mux.v $(TB_DIR)/four_way_set_tb.v
+
 	@vvp $(BUILD_DIR)/four_way_set_sim.vvp
 	@echo "===== Finished testing ====="
 

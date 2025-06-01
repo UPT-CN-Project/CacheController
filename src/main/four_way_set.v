@@ -218,26 +218,23 @@ module four_way_set #(
     //   - If no way is chosen (`ready = 4'b0000`), sel=2'b00; data=way0’s output,
     //     but hit_miss=0 in that case so CPU treats as miss.
     //-------------------------------------------------------------------------
-    mux4to1 #(
-        .w(8)
-    ) mux_data_inst (
-        .in_0(line_data[7:0]),
-        .in_1(line_data[15:8]),
-        .in_2(line_data[23:16]),
-        .in_3(line_data[31:24]),
-        .sel (sel),
-        .out (data)
+
+    mux #(
+        .SEL_WIDTH(2),  // 2 bits to select among 4 inputs
+        .w        (8)   // each input is 8 bits wide
+    ) data_mux_inst (
+        .in (line_data),  // 32-bit bus: {way3[7:0], way2[7:0], way1[7:0], way0[7:0]}
+        .sel(sel),        // 2-bit select
+        .out(data)        // 8-bit selected output
     );
 
-    mux4to1 #(
-        .w(1)
-    ) mux_hitmiss_inst (
-        .in_0(line_hit_miss[0]),
-        .in_1(line_hit_miss[1]),
-        .in_2(line_hit_miss[2]),
-        .in_3(line_hit_miss[3]),
-        .sel (sel),
-        .out (hit_miss)
+    mux #(
+        .SEL_WIDTH(2),  // 2 bits to select among 4 inputs
+        .w        (1)   // each input is 1 bit wide
+    ) hitmiss_mux_inst (
+        .in (line_hit_miss),  // 4-bit bus: {hit3, hit2, hit1, hit0}
+        .sel(sel),            // 2-bit select
+        .out(hit_miss)        // 1-bit selected output
     );
 
     //-------------------------------------------------------------------------

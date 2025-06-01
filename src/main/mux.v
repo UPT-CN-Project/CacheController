@@ -56,7 +56,7 @@
 //
 //==============================================================================
 
-module muxNto1 #(
+module mux #(
     parameter SEL_WIDTH = 4,  // Number of bits in `sel` → N = 2^SEL_WIDTH channels
     parameter w         = 8   // Width of each channel in bits
 ) (
